@@ -3,18 +3,18 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
-// ✅ Set EJS as the template engine
+// Set EJS as the template engine
 app.set("view engine", "ejs");
 
-// ✅ Middleware
+//  Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public")); // for styles.css, images, etc.
 
-// ✅ Store tasks
+//  Store tasks
 let items = [];
 let workitems = [];
 
-// 📌 GET Home page
+// GET Home page
 app.get("/", function (req, res) {
   const today = new Date();
 
@@ -29,7 +29,7 @@ app.get("/", function (req, res) {
   res.render("list", { listTitle: day, newListItems: items });
 });
 
-// 📌 POST - Add new task
+// POST - Add new task
 app.post("/", function (req, res) {
   let item = req.body.newItem;
 
@@ -49,7 +49,10 @@ app.get("/work", function (req, res) {
 app.get("/about", function (req, res) {
   res.render("about");
 });
-// ✅ Start the server
-app.listen(3000, function () {
-  console.log("🚀 Server is running on port 3000");
+
+// Start the server
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, function () {
+  console.log(`Server started on port ${PORT}`);
 });
